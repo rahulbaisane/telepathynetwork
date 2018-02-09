@@ -1,0 +1,4 @@
+name: Telepathy network
+description: 'Provide custom functionality'
+core: 8.x
+type: module
