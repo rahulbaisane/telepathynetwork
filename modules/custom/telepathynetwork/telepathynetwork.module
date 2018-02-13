@@ -1,14 +1,11 @@
 <?php
+
 use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_form_alter().
  */
 function telepathynetwork_form_alter(&$form, $form_state, $form_id) {
-
-  // Look for any form provided by the contact module.
-  // If you want to target a specific form you'll use the whole form ID
-  // (e.g. Website feedback = 'contact_message_feedback_form').
   if (strpos($form_id, 'contact_message_contact_form') !== FALSE) {
     $form['actions']['preview']['#access'] = FALSE;
   }
