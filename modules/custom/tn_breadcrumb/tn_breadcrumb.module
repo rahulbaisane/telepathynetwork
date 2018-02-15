@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Implements Custom module to alter breadcrumb.
+ *
+ */
+
+use Drupal\Core\Breadcrumb\Breadcrumb;
+use Drupal\Core\Breadcrumb\BreadcrumbBuilderInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+
+
+/**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function tn_breadcrumb_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) { 
+  global $base_url;
+  if (!empty($breadcrumb)) {
+    $links = $breadcrumb->getLinks();
+    if (!empty($links[1])) {
+      if ($links[1]->getText() == 'Node') {
+        $links[1]->setUrl(Url::fromUri($base_url));
+        $links[1]->setText('Home');      
+        $breadcrumb = new Breadcrumb();
+        $breadcrumb->setLinks($links);
+      }
+    }
+  }
+}

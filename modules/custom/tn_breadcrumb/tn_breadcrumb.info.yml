@@ -1,0 +1,5 @@
+name: 'Telepathynetwork Breadcrumb'
+description: 'Custom module to create custom breadcrumb'
+core: 8.x
+package: Telepathynetwork
+type: module
