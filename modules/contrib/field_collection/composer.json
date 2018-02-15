@@ -1,0 +1,22 @@
+{
+  "name": "drupal/field_collection",
+  "description": "Provides a field collection field, to which any number of fields can be attached.",
+  "type": "drupal-module",
+  "homepage": "https://drupal.org/project/field_collection",
+  "authors": [
+    {
+      "name": "Wolfgang Ziegler (fago)",
+      "homepage": "https://www.drupal.org/u/fago",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Joel Muzzerall (jmuzz)",
+      "homepage": "https://www.drupal.org/u/jmuzz",
+      "role": "Co-maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://drupal.org/project/issues/field_collection"
+  },
+  "minimum-stability": "dev"
+}

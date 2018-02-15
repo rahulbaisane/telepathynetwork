@@ -1,0 +1,134 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the field_collection module.
+ */
+
+use Drupal\Core\Entity\Sql\SqlEntityStorageInterface;
+
+/**
+ * Update database tables to support extended entity references.
+ */
+function field_collection_update_8001() {
+  /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+  // The key-value collection for tracking installed storage schema.
+  $installed_storage_schema = \Drupal::keyValue('entity.storage_schema.sql');
+  $schema = \Drupal::database()->schema();
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $entity_definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+
+  $column_schema = [
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'description' => 'The ID of the field collection item.',
+    'not null' => TRUE,
+  ];
+
+  // Only update field_collection fields.
+  foreach ($entity_field_manager->getFieldMapByFieldType('field_collection') as $entity_type_id => $map) {
+    $entity_storage = $entity_type_manager->getStorage($entity_type_id);
+
+    // Only SQL storage based entities are supported.
+    if (FALSE === ($entity_storage instanceof SqlEntityStorageInterface)) {
+      continue;
+    }
+
+    $field_storage_definitions = $entity_field_manager->getFieldStorageDefinitions($entity_type_id);
+    /** @var \Drupal\Core\Entity\Sql\TableMappingInterface $table_mapping */
+    $table_mapping = $entity_storage->getTableMapping($field_storage_definitions);
+    // Only need field storage definitions of field_collection fields.
+    /** @var \Drupal\Core\Field\FieldStorageDefinitionInterface $field_storage_definition */
+    foreach (array_intersect_key($field_storage_definitions, $map) as $field_storage_definition) {
+      $field_name = $field_storage_definition->getName();
+      $column_name = $table_mapping->getFieldColumnName($field_storage_definition, 'target_id');
+      $old_field_storage_definition = $entity_definition_update_manager->getFieldStorageDefinition($field_name, $entity_type_id);
+      $old_column_name = $table_mapping->getFieldColumnName($old_field_storage_definition, 'value');
+      $revision_column_name = $table_mapping->getFieldColumnName($field_storage_definition, 'revision_id');
+
+      $tables = [
+        $table_mapping->getDedicatedDataTableName($field_storage_definition),
+        $table_mapping->getDedicatedRevisionTableName($field_storage_definition),
+      ];
+
+      foreach ($tables as $table_name) {
+        if ($schema->tableExists($table_name) && $schema->fieldExists($table_name, $old_column_name)) {
+          $schema->changeField(
+            $table_name,
+            $old_column_name,
+            $column_name,
+            $column_schema);
+
+          // Update the installed storage schema for this field as well.
+          $key = $entity_type_id . '.field_schema_data.' . $field_name;
+          if ($field_schema_data = $installed_storage_schema->get($key)) {
+            $field_schema_data[$table_name]['fields'][$column_name] = $column_schema;
+            $field_schema_data[$table_name]['indexes'][$column_name] = [$column_name];
+            unset($field_schema_data[$table_name]['fields']["{$field_name}_value"]);
+            $installed_storage_schema->set($key, $field_schema_data);
+          }
+
+          // Modified from Drupal\field_collection\Plugin\Field\FieldType\FieldCollection::schema()
+          // at time of writing.
+          $spec = [
+            'fields' => [
+              $column_name => [
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'description' => 'The ID of the field collection item.',
+                'not null' => TRUE,
+              ],
+              $revision_column_name => [
+                'type' => 'int',
+                'description' => 'The revision ID of the field collection item.',
+                'not null' => FALSE,
+              ],
+            ],
+            'indexes' => [
+              $column_name => [$column_name],
+            ],
+          ];
+
+          $schema->addIndex($table_name, $column_name, [$column_name], $spec);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Update database to support entity references for pre-existing content types.
+ */
+function field_collection_update_8002() {
+  /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  foreach ($entity_field_manager->getFieldMapByFieldType('field_collection') as $entity_type_id => $map) {
+    $entity_storage = $entity_type_manager->getStorage($entity_type_id);
+
+    // Only SQL storage based entities are supported.
+    if (FALSE === ($entity_storage instanceof SqlEntityStorageInterface)) {
+      continue;
+    }
+
+    foreach ($map as $field_name => $field_settings) {
+      foreach ($field_settings['bundles'] as $bundle) {
+        $config = \Drupal::service('config.factory')->getEditable("field.field.$entity_type_id.$bundle.$field_name");
+        $settings = $config->get('settings');
+        if (empty($settings['handler'])) {
+          $settings['handler'] = 'default:field_collection_item';
+          $settings['handler_settings'] = [
+            'target_bundles' => [$field_name => $field_name],
+            'sort' => ['field' => '_none'],
+            'auto_create' => FALSE,
+            'auto_create_bundle' => '',
+          ];
+          $config->set('settings', $settings);
+          $config->save(TRUE);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+# Schema for the configuration files of the field_collection module
+
+field_collection.field_collection.*:
+  type: config_entity
+  label: 'Field collection'
+  mapping:
+    id:
+      type: string
+      label: 'Machine-readable name'
+    label:
+      type: label
+      label: 'Human-readable name'
+
+# Schema for the configuration of the Field collection field type.
+# Copied from Entity reference.
+# @TODO: These aren't really necessary for field collection and it may be
+# possible to remove them or replace them with something simpler.
+
+field.storage_settings.field_collection:
+  type: mapping
+  label: 'Field collection field storage settings'
+  mapping:
+    target_type:
+      type: string
+      label: 'Type of item to reference (should always be field_collection_item)'
+
+field.field_settings.field_collection:
+  type: mapping
+  label: 'Field collection field settings'
+  mapping:
+    handler:
+      type: string
+      label: 'Reference method'
+    handler_settings:
+      type: entity_reference_selection.[%parent.handler]
+      label: 'Field collection selection plugin settings'
