@@ -1,0 +1,9 @@
+drupal.filefield_sources:
+  version: VERSION
+  js:
+    js/filefield_sources.js: {}
+  css:
+    theme:
+      css/filefield_sources.css: {}
+  dependencies:
+    - file/drupal.file

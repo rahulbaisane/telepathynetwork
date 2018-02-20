@@ -1,0 +1,14 @@
+name: File Field Sources
+type: module
+description: 'Extends File fields to allow referencing of existing files, remote files, and server files.'
+package: Fields
+# core: 8.x
+dependencies:
+  - file
+  - system
+
+# Information added by Drupal.org packaging script on 2017-02-21
+version: '8.x-1.x-dev'
+core: '8.x'
+project: 'filefield_sources'
+datestamp: 1487711285

@@ -1,0 +1,10 @@
+filefield_sources.setting.source_reference:
+  type: mapping
+  label: 'Autocomplete reference options'
+  mapping:
+    autocomplete:
+      type: string
+      label: 'Match file name'
+    search_all_fields:
+      type: string
+      label: 'Search all file fields'

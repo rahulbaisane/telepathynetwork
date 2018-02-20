@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Update and install functions for FileField Sources.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function filefield_sources_install() {
+  // FileField Sources needs to load after both ImageField and FileField.
+  try {
+    $file_weight = module_get_weight('file');
+    $image_weight = module_get_weight('image');
+    $weight = max(array($file_weight, $image_weight));
+    $weight++;
+  }
+  catch (Exception $e) {
+    $weight = 5;
+  }
+  module_set_weight('filefield_sources', $weight);
+}

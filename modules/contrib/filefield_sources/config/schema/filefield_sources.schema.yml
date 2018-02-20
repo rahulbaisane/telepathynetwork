@@ -1,0 +1,9 @@
+field.widget.third_party.filefield_sources:
+  type: mapping
+  label: 'filefield_sources entity form display settings'
+  mapping:
+    filefield_sources:
+      type: sequence
+      label: 'filefield_sources settings'
+      sequence:
+        - type: filefield_sources.setting.[%key]

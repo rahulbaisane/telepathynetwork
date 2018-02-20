@@ -1,0 +1,5 @@
+filefield_sources.setting.sources:
+  type: sequence
+  label: 'filefield_sources source'
+  sequence:
+    - type: filefield_sources.source.[%key]

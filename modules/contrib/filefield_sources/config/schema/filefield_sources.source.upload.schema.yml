@@ -1,0 +1,5 @@
+# Schema for the filefield_sources source plugins.
+
+filefield_sources.source.upload:
+  type: filefield_sources_source
+  label: 'Upload'

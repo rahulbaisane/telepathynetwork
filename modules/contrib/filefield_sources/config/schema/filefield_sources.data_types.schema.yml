@@ -1,0 +1,5 @@
+# Basic data types for FileField Sources.
+
+filefield_sources_source:
+  type: boolean
+  label: 'Plugin'

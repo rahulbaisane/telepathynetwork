@@ -1,0 +1,13 @@
+filefield_sources.setting.source_attach:
+  type: mapping
+  label: 'File attach settings'
+  mapping:
+    path:
+      type: string
+      label: 'File attach path'
+    absolute:
+      type: integer
+      label: 'File attach location'
+    attach_mode:
+      type: string
+      label: 'Attach method'

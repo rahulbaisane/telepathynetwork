@@ -1,0 +1,12 @@
+services:
+  plugin.manager.filefield_sources:
+    class: Drupal\filefield_sources\FilefieldSourceManager
+    parent: default_plugin_manager
+  filefield_sources:
+    alias: plugin.manager.filefield_sources
+  access_check.filefield_sources.field:
+    class: Drupal\filefield_sources\Access\FieldAccessCheck
+    tags:
+      - { name: access_check, applies_to: _access_filefield_sources_field }
+  filefield_sources.imce_scanner:
+    class: Drupal\filefield_sources\ImceScanner

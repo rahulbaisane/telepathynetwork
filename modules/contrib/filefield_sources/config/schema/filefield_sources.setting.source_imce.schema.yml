@@ -1,0 +1,7 @@
+filefield_sources.setting.source_imce:
+  type: mapping
+  label: 'IMCE file browser settings'
+  mapping:
+    imce_mode:
+      type: integer
+      label: 'File browser mode'
