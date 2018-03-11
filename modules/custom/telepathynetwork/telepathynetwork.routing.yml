@@ -1,0 +1,7 @@
+telepathynetwork.form:
+ path: '/telepathynetwork/color/{arg1}'
+ defaults:
+   _title: 'Telepathy Network'
+   _form: '\Drupal\telepathynetwork\Form\TelepathynetworkForm'
+ requirements:
+   _permission: 'access content'
