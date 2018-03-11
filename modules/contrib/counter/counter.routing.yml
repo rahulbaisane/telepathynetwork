@@ -1,0 +1,31 @@
+counter.counter_settings:
+  path: '/admin/config/counter'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Counter'
+  requirements:
+    _permission: 'administer counter'
+    
+counter.basic:
+  path: '/admin/config/counter/basic'
+  defaults:
+    _form: '\Drupal\counter\Form\CounterSettingsBasic'
+    _title: 'Basic Counter'
+  requirements:
+    _permission: 'administer counter'
+    
+counter.advanced:
+  path: '/admin/config/counter/advanced'
+  defaults:
+    _form: '\Drupal\counter\Form\CounterSettingsAdvanced'
+    _title: 'Advanced Counter'
+  requirements:
+    _permission: 'administer counter'
+    
+counter.initial:
+  path: '/admin/config/counter/initial'
+  defaults:
+    _form: '\Drupal\counter\Form\CounterSettingsInitial'
+    _title: 'Initial Counter'
+  requirements:
+    _permission: 'administer counter'

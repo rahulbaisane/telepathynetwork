@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * The counter module used for displaying Site Counter.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function counter_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.counter':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The counter module used for displaying Site Counter') . ' </p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function counter_views_api() {
+  return array(
+    'api' => views_api_version(),
+  );
+}

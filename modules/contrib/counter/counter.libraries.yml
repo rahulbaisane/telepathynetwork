@@ -1,0 +1,9 @@
+counter.custom:
+  version: VERSION
+  css:
+    theme:    
+      css/counter.css: {} 
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.form

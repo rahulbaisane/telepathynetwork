@@ -1,0 +1,24 @@
+counter.counter_settings:
+  title: 'Counter'  
+  route_name: counter.counter_settings
+  weight: -10
+  parent: system.admin_config
+  
+counter.basic:
+  title: 'Basic Counter'
+  description: 'Show Site Counter, Client IP, and Unique Visitor.'
+  route_name: counter.basic
+  weight: -17
+  parent: counter.counter_settings
+  
+counter.advanced:
+  title: 'Advanced Counter'  
+  route_name: counter.advanced
+  weight: -16
+  parent: counter.counter_settings
+  
+counter.initial:
+  title: 'Initial Counter'  
+  route_name: counter.initial
+  weight: -15
+  parent: counter.counter_settings
