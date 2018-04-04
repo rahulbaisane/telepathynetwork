@@ -1,0 +1,45 @@
+<?php
+/**
+ * Implements hook_schema().
+ */
+function telepathynetwork_schema() {
+  $schema['telepathynetwork_tb'] = [
+    'description' => 'Stores telepathy networks data.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique ID.',
+      ],
+      'nid' => [
+        'type' => 'int',
+
+        'description' => "Node nid",
+      ],
+      'uid' => [
+        'type' => 'int',
+        'description' => "User uid",
+      ],
+      'name' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'description' => 'Name of the person.',
+      ],
+      'type' => [
+        'type' => 'varchar',
+        'length' => 32,
+        'description' => 'Type of telepathy',
+      ],
+      'status' => [
+        'type' => 'int',
+        'description' => "Status",
+      ],
+      'timestamp' => [
+        'type' => 'int',
+        'description' => "Timestamp",
+      ],
+    ],
+    'primary key' => ['id']
+  ];
+  return $schema;
+}
