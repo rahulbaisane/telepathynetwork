@@ -4,4 +4,13 @@ telepathynetwork.form:
    _title: 'Telepathy Network'
    _form: '\Drupal\telepathynetwork\Form\TelepathynetworkForm'
  requirements:
-   _permission: 'access content'
+   _permission: 'telepathynetwork_permissions'
+
+# Please do not remove this code, this code id for flood system
+# telepathynetwork.admin:
+#   path: '/admin/config/content/telepathynetwork-flood'
+#   defaults:
+#     _form: '\Drupal\telepathynetwork\Form\TelepathynetworkConfigForm'
+#     _title: 'Telepathy network flood configuration'
+#   requirements:
+#     _permission: 'telepathynetwork_permissions'
