@@ -357,6 +357,47 @@ function telepathynetwork_views_data() {
       'id' => 'date',
     ],
   ];
+  $data['telepathynetwork_tb']['oid'] = [
+    'title' => t('Owner id'),
+    'help' => t('Owner id'),
+    'field' => [
+      // ID of field handler plugin to use.
+      'id' => 'numeric',
+    ],
+    'sort' => [
+      // ID of sort handler plugin to use.
+      'id' => 'standard',
+    ],
+    'filter' => [
+      // ID of filter handler plugin to use.
+      'id' => 'numeric',
+    ],
+    'argument' => [
+      // ID of argument handler plugin to use.
+      'id' => 'numeric',
+    ],
+  ];
+  // Plain text field, exposed as a field, sort, filter, and argument.
+  $data['telepathynetwork_tb']['title'] = [
+    'title' => t('Title of node'),
+    'help' => t('Title of node'),
+    'field' => [
+      // ID of field handler plugin to use.
+      'id' => 'standard',
+    ],
+    'sort' => [
+      // ID of sort handler plugin to use.
+      'id' => 'standard',
+    ],
+    'filter' => [
+      // ID of filter handler plugin to use.
+      'id' => 'string',
+    ],
+    'argument' => [
+      // ID of argument handler plugin to use.
+      'id' => 'string',
+    ],
+  ];
 
   // Area example. Areas are not generally associated with actual data
   // tables and fields. This example is from views_views_data(), which defines
