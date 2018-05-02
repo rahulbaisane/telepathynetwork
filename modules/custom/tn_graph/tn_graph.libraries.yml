@@ -1,0 +1,18 @@
+tn-graph:
+  css:
+    theme:
+      css/chartist.min.css: {}
+      css/chartist-plugin-tooltip.css: {}
+      css/graph-style.css: {}
+  js:
+    js/chartist.min.js: {}
+    js/chartist-plugin-tooltip.min.js: {}
+    js/tn-graph.js: {}
+    js/tn-graph-telepathy.js: {}
+  
+  dependencies:
+    - core/jquery
+    - core/drupal.ajax
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once

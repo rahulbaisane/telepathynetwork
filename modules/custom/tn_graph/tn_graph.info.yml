@@ -1,0 +1,7 @@
+name: Telepathy Graph
+description: 'This module provide Telepathy Network graph'
+core: 8.x
+type: module
+
+libraries:
+  - 'tn_graph/tn-graph'
