@@ -1,0 +1,12 @@
+# Schema for the configuration files of the Telepathy Network module.
+
+telepathynetwork.settings:
+  type: config_object
+  label: 'Telepathy Network Flood settings'
+  mapping:
+    telepathynetwork_flood_number:
+      type: string
+      label: 'Number'
+    telepathynetwork_flood_interval:
+      type: string
+      label: 'Interval'
