@@ -1,0 +1,5 @@
+# Drupal 8 telepathynetwork.links.menu.yml snippet
+# telepathynetwork.admin:
+#   title: 'Configure telepathynetwork flood'
+#   route_name: telepathynetwork.admin
+#   parent: system.admin_config_content
