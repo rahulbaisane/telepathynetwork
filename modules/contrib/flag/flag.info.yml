@@ -1,0 +1,14 @@
+name: Flag
+description: Create customized flags that users can set on entities.
+# core: 8.x
+type: module
+package: Flags
+test_dependencies:
+ - rules:rules
+configure: entity.flag.collection
+
+# Information added by Drupal.org packaging script on 2018-06-29
+version: '8.x-4.0-alpha3+9-dev'
+core: '8.x'
+project: 'flag'
+datestamp: 1530242327

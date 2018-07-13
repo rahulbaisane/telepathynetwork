@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @file
+ * Implements tn_subscribe module.
+ */
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Mail\MailManagerInterface;
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Database\Query;
+use Drupal\Core\Entity\Query\QueryInterface;
+/**
+ * Implements hook_help().
+ */
+/*function tn_subscribe_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.tn_subscribe':
+      $output = '';
+      $output .= '<h3>' . t('INTRODUCTION') . '</h3>';
+      $output .= '<p>' . t('A user may subscribe to another users account and receive an email when that user creates a new test. They will also receive an email when each test by that user ends, with the results of their vote.') . '</p>';
+      return $output;
+  }
+}*/
+
+/**
+ * Implements hook_node_presave().
+ */
+function tn_subscribe_node_presave(EntityInterface $node) {
+  $node_type = $node->getType();
+  if($node_type == 'shift') {
+    $query = \Drupal::database()->query("select mail from users_field_data join flagging on users_field_data.uid = flagging.entity_id where flagging.flag_id = 'following'");
+    $records = $query->fetchAll();
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    foreach ($records as $key => $record) {
+      $to[$key] = $record->mail;
+    }
+    $to = implode(",", $to);
+    $params['from'] = 'agaric.online@gmail.com';
+    $params['subject'] = 'Telepathy Network Alert';
+    $langcode = \Drupal::currentUser()->getPreferredLangcode();
+    $send = true;
+    $params['message'] = 'This is dummy body';
+    $module = 'tn_subscribe';
+    $key = 'tn_subscribe';
+    $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function tn_subscribe_mail($key, &$message, $params) {
+  $options = array(
+    'langcode' => $message['langcode'],
+  );
+  switch ($key) {
+    case 'tn_subscribe':
+      $message['from'] = $params['from'];
+      $message['subject'] = $params['subject'];
+      $message['body'][] =  $params['message'];
+      break;
+  }
+}

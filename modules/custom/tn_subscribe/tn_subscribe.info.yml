@@ -1,0 +1,4 @@
+name: 'Telepathy subscribe'
+description: 'A user may subscribe to another users account and receive an email when that user creates a new test.'
+type: module
+core: 8.x
